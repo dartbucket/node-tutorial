@@ -1,21 +1,22 @@
-const http = require('http');
+const express = require('express');
 
-const server = http.createServer((req, res)=>{
+const app = express();
 
-    console.log(req.url);
-
-    console.log(req.method);
-
-    // GET, POST, PUT , DELETE
-    console.log("Request Hit");
-
-    res.setHeader('Content-Type', 'text/plain');
-
-    res.write("Hello World");
-
-    res.end();
+app.listen(3000, ()=>{
+    console.log("server is up and running");
 });
 
-server.listen(3000, () => {
-    console.log("Server up and running");
+
+
+app.get("/",(req, res)=>{
+    return res.send("Hello World");
+})
+
+app.get("/info", (req,res)=>{
+    return res.send("<h1> This is INFO</h1>");
 });
+
+
+app.use((req,res)=>{
+    return res.send("Something went wrong - 404");
+})
